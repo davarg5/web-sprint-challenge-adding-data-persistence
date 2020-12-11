@@ -7,7 +7,7 @@ module.exports = {
 };
 
 async function create(resource) {
-    const newId = db('resources').insert(resource);
+    const newId = await db('resources').insert(resource);
     return db('resources').where('resource_id', newId);
 }
 

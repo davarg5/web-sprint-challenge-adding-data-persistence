@@ -7,7 +7,7 @@ module.exports = {
 };
 
 async function create(project) {
-    const newId = db('projects').insert(project);
+    const newId = await db('projects').insert(project);
     return db('projects').where('project_id', newId);
 }
 
