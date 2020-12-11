@@ -5,6 +5,7 @@ const router = express.Router();
 const Task = require('./model');
 
 router.post('/', (req, res) => {
+    console.log(req.body);
     if(!req.body.description || !req.body.project_id) {
         res.status(400).json({ message: 'Task must have a description and project id' });
     }

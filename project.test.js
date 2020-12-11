@@ -131,10 +131,11 @@ describe('server.js', () => {
   // 👉 TASKS
   describe('tasks endpoints', () => {
     beforeEach(async () => {
+      await db('tasks').truncate()
       await db('projects').truncate()
       await db('projects').insert(projectA)
       await db('projects').insert(projectB)
-      await db('tasks').truncate()
+      
       await db('tasks').insert(taskA)
       await db('tasks').insert(taskB)
       await db('tasks').insert({ ...taskC, completed: 1 })
