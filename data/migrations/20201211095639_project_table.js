@@ -21,7 +21,7 @@ exports.up = function(knex) {
             .notNullable()
             .references('id').inTable('projects')
             .onDelete('RESTRICT').onUpdate('RESTRICT');
-    })
+    })  
     .createTable('project-resources', table => {
         table.increments('id');
         table.integer('resource_id')
