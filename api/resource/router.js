@@ -5,17 +5,19 @@ const router = express.Router();
 const Resource = require('./model');
 
 router.post('/', (req, res) => {
-    if(!req.body.resource_name) {
+    if(!req.body.name) {
         res.status(400).json({ message: 'Resource must have a name' });
     }
-    const newResource = req.body;
-    Resource.create(newResource)
-        .then(resource => {
-            res.status(201).json(resource);
-        })
-        .catch(err => {
-            res.status(500).json({ message: err.message });
-        });
+    else {
+        const newResource = req.body;
+        Resource.create(newResource)
+            .then(resource => {
+                res.status(201).json(resource[0]);
+            })
+            .catch(err => {
+                res.status(500).json({ message: err.message });
+            });
+    }
 });
 
 router.get('/', (req, res) => {

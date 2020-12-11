@@ -8,9 +8,23 @@ module.exports = {
 
 async function create(project) {
     const newId = await db('projects').insert(project);
-    return db('projects').where('project_id', newId);
+    return db('projects').where('id', newId)
+    .then(projects => {
+        return projects.map(project =>  {
+            return {...project,
+                completed: project.completed ===  1 ? true : false
+            }
+        })
+    })
 }
 
 function getAll() {
-    return db('projects');
+    return db('projects')
+        .then(projects => {
+            return projects.map(project =>  {
+                return {...project,
+                    completed: project.completed ===  1 ? true : false
+                }
+            })
+        })
 }

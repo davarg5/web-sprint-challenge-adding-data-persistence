@@ -8,9 +8,9 @@ module.exports = {
 
 async function create(resource) {
     const newId = await db('resources').insert(resource);
-    return db('resources').where('resource_id', newId);
+    return db('resources').where('id', newId);
 }
 
 function getAll() {
-    return db('resources');
+    return db('resources')
 }

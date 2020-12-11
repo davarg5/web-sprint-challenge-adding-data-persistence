@@ -8,9 +8,25 @@ module.exports = {
 
 async function create(task) {
     const newId = await db('tasks').insert(task);
-    return db('tasks').where('task_id', newId);
+    return db('tasks').where('id', newId)
+        .then(tasks => {
+            return tasks.map(task =>  {
+                return {...task,
+                    completed: task.completed ===  1
+                }
+            })
+        })
 }
 
 function getAll() {
-    return db('tasks');
+    return db('tasks as t')
+        .join('projects as p', 't.project_id', 'p.id')
+        .select('t.id', 't.description', 't.notes', 'p.name as project_name', 'p.description as project_description')    
+        .then(tasks => {
+            return tasks.map(task =>  {
+                return {...task,
+                    completed: task.completed ===  1 
+                }
+            })
+        })
 }

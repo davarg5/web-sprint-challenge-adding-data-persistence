@@ -5,17 +5,19 @@ const router = express.Router();
 const Project = require('./model');
 
 router.post('/', (req, res) => {
-    if(!req.body.project_name) {
+    if(!req.body.name) {
         res.status(400).json({ message: 'Project must have a name' });
     }
-    const newProject = req.body;
-    Project.create(newProject)
-        .then(project => {
-            res.status(201).json(project);
-        })
-        .catch(err => {
-            res.status(500).json({ message: err.message });
-        });
+    else {
+        const newProject = req.body;
+        Project.create(newProject)
+            .then(project => {
+                res.status(201).json(project[0]);
+            })
+            .catch(err => {
+                res.status(500).json({ message: err.message });
+            });
+    }
 });
 
 router.get('/', (req, res) => {
